@@ -1,6 +1,7 @@
 package gamehdl
 
 import (
+	"errors"
 	"fmt"
 	"sodouku/internal/core/domain"
 	"sodouku/internal/core/ports"
@@ -16,22 +17,18 @@ func NewCMDHandler(gameService ports.GameService) *CMDHandler {
 	}
 }
 
-func (hdl *CMDHandler) NewGame(name string, size uint, dificulty string) {
+func (hdl *CMDHandler) NewGame(name string, size uint, dificulty string) error {
 	game, err := hdl.gameService.Create(name, size, dificulty)
 
 	if err != nil {
-		return
+		return errors.New("GameService failed to create a new game!!!")
 	}
 
 	ShowBoard(game.Board)
+
+	return nil
 }
 
 func ShowBoard(board domain.Board) {
-	region0 := &board[0][0]
-	region1 := &board[0][1]
-	region2 := &board[0][2]
-	*region0 = domain.Region{[]string{"1", "2", "3"}, []string{"4", "5", "6"}, []string{"7", "8", "9"}}
-	*region1 = domain.Region{[]string{"1", "2", "3"}, []string{"4", "5", "6"}, []string{"7", "8", "9"}}
-	*region2 = domain.Region{[]string{"1", "2", "3"}, []string{"4", "5", "6"}, []string{"7", "8", "9"}}
 	fmt.Println(board.ToString())
 }

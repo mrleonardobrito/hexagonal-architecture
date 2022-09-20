@@ -1,18 +1,14 @@
 package domain
 
-type Board [][]Region
+import "math"
+
+type Board []Region
 
 func NewEmptyBoard(size uint) Board {
-	board := make([][]Region, size)
+	board := make([]Region, size*size)
 
 	for i := range board {
-		board[i] = make([]Region, size)
-	}
-
-	for i := range board {
-		for j := range board[0] {
-			board[i][j] = NewEmptyRegion(GAME_DIFFICULT_EASY)
-		}
+		board[i] = NewEmptyRegion("easy")
 	}
 
 	return board
@@ -20,14 +16,26 @@ func NewEmptyBoard(size uint) Board {
 
 func (board Board) ToString() string {
 	boardString := ""
+	size := int(math.Sqrt(float64(len(board))))
 
-	for i := range board {
-		for _, region := range board[i] {
+	for i := 0; i < len(board); i += size {
+		row := board[i : i+int(size)]
+		renderedRow := renderBoardRow(row)
+		boardString += renderedRow
+		boardString += "-------------\n"
+	}
+	return boardString
+}
 
-			boardString += "\n"
+func renderBoardRow(row []Region) string {
+	rowString := ""
+
+	for i := 0; i < 3; i++ {
+		for j := range row {
+			rowString += row[j].RenderLine(i)
 		}
-		boardString += "----------------------- \n"
+		rowString += "\n"
 	}
 
-	return boardString
+	return rowString
 }
