@@ -4,19 +4,13 @@ const (
 	CELL_EMPTY = "_"
 )
 
-type Region [][]string
+type Region []string
 
 func NewEmptyRegion(dificulty string) Region {
-	region := make([][]string, 3)
+	region := make([]string, 9)
 
 	for i := range region {
-		region[i] = make([]string, 3)
-	}
-
-	for i := range region {
-		for j := range region[0] {
-			region[i][j] = CELL_EMPTY
-		}
+		region[i] = CELL_EMPTY
 	}
 
 	return region
@@ -24,7 +18,9 @@ func NewEmptyRegion(dificulty string) Region {
 
 func (region Region) RenderLine(n_line int) string {
 	lineString := ""
-	lineString += region[n_line][0] + " " + region[n_line][1] + " " + region[n_line][2] + " | "
+
+	pos := n_line * 3
+	lineString += region[pos] + " " + region[pos+1] + " " + region[pos+2] + " | "
 
 	return lineString
 }

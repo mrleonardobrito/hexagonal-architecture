@@ -28,6 +28,6 @@ func (hdl *CMDHandler) NewGame(name string, size uint, dificulty string) {
 
 func ShowBoard(board domain.Board) {
 	region0 := &board[0][0]
-	*region0 = domain.Region{[]string{"1", "2", "3"}, []string{"4", "5", "6"}, []string{"7", "8", "9"}}
+	*region0 = domain.Region{"1", "2", "3", "4", "5", "6", "7", "8", "9"}
 	fmt.Println(board.ToString())
 }
