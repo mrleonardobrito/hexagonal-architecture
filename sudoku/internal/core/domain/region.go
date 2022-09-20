@@ -22,15 +22,9 @@ func NewEmptyRegion(dificulty string) Region {
 	return region
 }
 
-func (region Region) ToString() string {
-	regionString := ""
+func (region Region) RenderLine(n_line int) string {
+	lineString := ""
+	lineString += region[n_line][0] + " " + region[n_line][1] + " " + region[n_line][2] + " | "
 
-	for i := range region {
-		for j := range region[i] {
-			regionString += region[i][j] + " "
-		}
-		regionString += "| "
-	}
-
-	return regionString
+	return lineString
 }

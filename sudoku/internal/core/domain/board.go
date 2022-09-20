@@ -21,13 +21,30 @@ func NewEmptyBoard(size uint) Board {
 func (board Board) ToString() string {
 	boardString := ""
 
-	for i := range board {
-		for _, region := range board[i] {
-
-			boardString += "\n"
+	for _, row := range board {
+		boardString += renderBoardRow(row)
+		for i := range row {
+			if i < len(row)-1 {
+				boardString += "--------"
+			} else {
+				boardString += "-------"
+			}
 		}
-		boardString += "----------------------- \n"
+		boardString += "\n"
 	}
 
 	return boardString
+}
+
+func renderBoardRow(row []Region) string {
+	rowString := ""
+
+	for i := 0; i < 3; i++ {
+		for j := range row {
+			rowString += row[j].RenderLine(i)
+		}
+		rowString += "\n"
+	}
+
+	return rowString
 }

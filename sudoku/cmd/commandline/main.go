@@ -9,5 +9,5 @@ func main() {
 	gameService := gamesrv.New()
 	gameHandler := gamehdl.NewCMDHandler(gameService)
 
-	gameHandler.NewGame("jogo teste", 3, "easy")
+	gameHandler.NewGame("jogo teste", 10, "easy")
 }
